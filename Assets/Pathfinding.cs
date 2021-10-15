@@ -40,15 +40,21 @@ public class Pathfinding : MonoBehaviour {
 	}
 
 	void Update() {  //remove below comments to update the path 
-	
-		//FindPath (seekertargetAstar.position, targetAstar.position);
+	 /*
+		FindPath (seekertargetAstar.position, targetAstar.position);
+				Debug.Log("A* runtime:"+timerAstar.Elapsed.ToString()+"Memory used to find the returned path:"+totalMemoryUsedAstar+"*8 bytes for 32bits/*12-16bytes for 64bits");
 
 	
-		//FindPathUCS (seekertargetUCS.position, targetUCS.position);
-		//FindPathBFS (seekertargetBFS.position, targetBFS.position);
+		FindPathUCS (seekertargetUCS.position, targetUCS.position);
+						Debug.Log("UCS runtime:"+timerUCS.Elapsed.ToString()+"Memory used to find the returned path:"+totalMemoryUsedUCS+"*8 bytes for 32bits/*12-16bytes for 64bits");
+
+		FindPathBFS (seekertargetBFS.position, targetBFS.position);
+				Debug.Log("BFS runtime:"+timerBFS.Elapsed.ToString()+"Memory used to find the returned path:"+totalMemoryUsedBFS+"*8 bytes for 32bits/*12-16bytes for 64bits");
+
 	 	//FindPathDFS (seekertargetDFS.position, targetDFS.position);
-		
-		
+			//	Debug.Log("DFS runtime:"+timerDFS.Elapsed.ToString()+"Memory used to find the returned path:"+totalMemoryUsedDFS+"*8 bytes for 32bits/*12-16bytes for 64bits");
+
+		*/
 	}
 	void Start() { //only prints the times once at after the completion of each algorithm
 		FindPath (seekertargetAstar.position, targetAstar.position);
@@ -292,6 +298,14 @@ void FindPathUCS(Vector3 startPos, Vector3 targetPos) {
 		if (dstX > dstY)
 			return 14*dstY + 10* (dstX-dstY);
 		return 14*dstX + 10 * (dstY-dstX);
+	}
+	int GetSameDistance(Node nodeA, Node nodeB) {
+		int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
+		int dstY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
+
+		if (dstX > dstY)
+			return 10*dstY + 10* (dstX-dstY);
+		return 10*dstX + 10 * (dstY-dstX);
 	}
 	int GetDistanceUCS(Node nodeA, Node nodeB) {
 		int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
